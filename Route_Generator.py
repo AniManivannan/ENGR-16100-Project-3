@@ -34,12 +34,22 @@ class RouteGenerator:
                 while self.running:
                     self.updateSensorValues()
                     match self.sensorValues:
-                        case [1,1,1]:
+                        case [0,0,0]:
                             self.driveForward(self.targetSpeed)
+                        case [0,0,1]:
+                            self.driveForward(self.targetSpeed)
+                        case [1,1,0]:
+                            self.driveForward(self.targetSpeed)
+                        case [1,0,0]:
+                            self.rotate(self.turnSpeed, 1)
+                        case [0,1,0]:
+                            self.rotate(self.turnSpeed, -1)
                         case [1,0,1]:
                             self.rotate(self.turnSpeed, 1)
                         case [0,1,1]:
                             self.rotate(self.turnSpeed, -1)
+                        case [1,1,1]:
+                            self.driveForward(self.targetSpeed)
                         case _:
                             print("No line found")
                             self.stopMotors()
